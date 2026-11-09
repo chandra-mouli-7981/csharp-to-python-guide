@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>System Design: "What happens if...?" practice</title>
+  <meta name="description" content="Interviewer-style scenario drills on race conditions, failures, concurrency and distributed systems." />
+  <link rel="stylesheet" href="../assets/style.css" />
+  <link rel="stylesheet" href="sysdesign.css" />
+  <script src="../assets/theme.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="icon-btn" href="../" title="All modules" style="text-decoration:none">⌂</a>
+    <div class="brand">System Design <span>·</span> What happens if…?</div>
+    <nav class="tabs" id="tabs">
+      <button data-tab="practice" class="tab active">Practice</button>
+      <button data-tab="bank" class="tab">Question bank</button>
+      <button data-tab="progress" class="tab">Progress</button>
+    </nav>
+    <button id="theme-btn" class="icon-btn" aria-label="Toggle theme">🌓</button>
+  </header>
+
+  <main class="sd">
+    <details class="framework">
+      <summary>How to structure any "what happens if…" answer</summary>
+      <ol>
+        <li><b>Clarify</b>: scale, consistency needs, what "failure" means (crash, slow, partition, duplicate).</li>
+        <li><b>Trace the failure</b>: walk the timeline step by step. What state is each component in?</li>
+        <li><b>Impact</b>: who is affected (data loss, duplicates, downtime, wrong results)? How bad?</li>
+        <li><b>Detect</b>: which metric, log or alert tells you?</li>
+        <li><b>Mitigate and fix</b>: immediate action, then the design change (idempotency, locking, backoff, fencing...).</li>
+        <li><b>Trade-offs</b>: what does your fix cost (latency, complexity, availability)? Name the alternatives.</li>
+      </ol>
+    </details>
+
+    <section class="filters">
+      <div class="filter-row">
+        <span class="filter-label">Topics</span>
+        <div id="cat-chips" class="chips"></div>
+      </div>
+      <div class="filter-row">
+        <span class="filter-label">Difficulty</span>
+        <div id="diff-chips" class="chips"></div>
+        <label class="toggle"><input type="checkbox" id="prioritize" checked /> Prioritise unseen &amp; weak</label>
+        <span id="pool-count" class="muted"></span>
+      </div>
+    </section>
+
+    <section id="view-practice"></section>
+    <section id="view-bank" hidden></section>
+    <section id="view-progress" hidden></section>
+  </main>
+
+  <script src="data/q-base.js"></script>
+  <script src="data/q-1.js"></script>
+  <script src="data/q-2.js"></script>
+  <script src="data/q-3.js"></script>
+  <script src="data/q-4.js"></script>
+  <script src="practice.js"></script>
+</body>
+</html>

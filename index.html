@@ -3,36 +3,49 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>C# to Python Guide: syntax, DSA, OOP</title>
-  <meta name="description" content="A practical cheat sheet for C# developers moving to Python: syntax, collections, LINQ equivalents, DSA toolkit and OOP differences." />
-
+  <title>Interview Prep Hub</title>
+  <meta name="description" content="Study modules: C# to Python guide, and a system design 'what happens if' interview trainer." />
   <link rel="stylesheet" href="assets/style.css" />
-  <link id="hljs-theme" rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" />
+  <link rel="stylesheet" href="assets/home.css" />
+  <script src="assets/theme.js"></script>
 </head>
 <body>
   <header class="topbar">
-    <button id="menu-btn" class="icon-btn" aria-label="Toggle navigation">☰</button>
-    <div class="brand">C# <span>→</span> Python</div>
-    <input id="search" type="search" placeholder="Search the guide… (press /)" aria-label="Search" />
-    <button id="theme-btn" class="icon-btn" aria-label="Toggle theme">🌓</button>
+    <div class="brand">Interview <span>Prep</span> Hub</div>
+    <button id="theme-btn" class="icon-btn" style="margin-left:auto" aria-label="Toggle theme">🌓</button>
   </header>
 
-  <div class="layout">
-    <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-      <div class="sidebar-title">Contents</div>
-      <ul id="toc"></ul>
-    </nav>
+  <main class="home">
+    <h1>Pick a module</h1>
+    <p class="lead">Self-paced study modules. Progress is saved in your browser.</p>
 
-    <main id="content" class="content">
-      <p class="loading">Loading guide…</p>
-    </main>
-  </div>
+    <div class="cards">
+      <a class="card" href="python/">
+        <div class="card-icon">🐍</div>
+        <h2>C# → Python Guide</h2>
+        <p>Syntax, collections, LINQ equivalents, the DSA toolkit and OOP differences, as a searchable cheat sheet.</p>
+        <span class="card-meta">Reference · 12 sections</span>
+      </a>
 
-  <button id="to-top" class="to-top" aria-label="Back to top">↑</button>
+      <a class="card" href="sysdesign/">
+        <div class="card-icon">🎤</div>
+        <h2>System Design: "What happens if…?"</h2>
+        <p>Interviewer-style scenario drills on race conditions, failures, concurrency and distributed systems. Answer first, then reveal and self-score.</p>
+        <span class="card-meta" id="sd-meta">Practice · scenario questions</span>
+      </a>
+    </div>
+  </main>
 
-  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-  <script src="assets/app.js"></script>
+  <script src="sysdesign/data/q-base.js"></script>
+  <script src="sysdesign/data/q-1.js"></script>
+  <script src="sysdesign/data/q-2.js"></script>
+  <script src="sysdesign/data/q-3.js"></script>
+  <script src="sysdesign/data/q-4.js"></script>
+  <script>
+    (function () {
+      var el = document.getElementById("sd-meta");
+      if (window.QB && el) el.textContent = "Practice · " + QB.length + " scenario questions · " + QCATS.length + " topics";
+    })();
+  </script>
 </body>
 </html>

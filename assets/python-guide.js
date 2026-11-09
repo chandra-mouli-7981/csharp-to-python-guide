@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
   "use strict";
 
   const content = document.getElementById("content");
@@ -35,7 +35,7 @@
   async function load() {
     let md;
     try {
-      const res = await fetch("content/guide.md");
+      const res = await fetch("guide.md");
       if (!res.ok) throw new Error(res.status);
       md = await res.text();
     } catch (err) {
@@ -216,3 +216,4 @@
 
   load();
 })();
+
