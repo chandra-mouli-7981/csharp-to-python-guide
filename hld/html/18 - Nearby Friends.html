@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>18. Nearby Friends</title>
+<style>
+:root{--bg:#f6f8fb;--card:#fff;--ink:#1b2430;--muted:#5b6777;--accent:#1f4e79;--accent2:#2f80ed;--line:#d9e0ea;--hot:#e8590c;--code:#eef2f7}
+@media (prefers-color-scheme:dark){:root{--bg:#10151c;--card:#18202a;--ink:#e6edf5;--muted:#9aa8b8;--accent:#6aa9e9;--accent2:#6aa9e9;--line:#2b3744;--hot:#ffa94d;--code:#202b38}}
+*{box-sizing:border-box}
+body{margin:0;font:15px/1.55 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:var(--accent);color:#fff;padding:18px 28px}
+header .crumb{font-size:12px;opacity:.85;letter-spacing:.08em;text-transform:uppercase}
+header h1{margin:4px 0 4px;font-size:28px}
+header p{margin:0;opacity:.92}
+header nav{margin-top:10px;font-size:13px}
+header nav a{color:#fff;opacity:.9;margin-right:14px}
+.progress{height:5px;background:rgba(255,255,255,.25);margin-top:12px;border-radius:3px;overflow:hidden}
+.progress div{height:100%;width:0;background:#7bdc8f;transition:width .3s}
+.layout{display:flex;gap:24px;max-width:1280px;margin:0 auto;padding:20px}
+aside{position:sticky;top:12px;align-self:flex-start;width:210px;flex:none;font-size:13px}
+aside a{display:block;padding:5px 10px;color:var(--muted);text-decoration:none;border-left:3px solid transparent}
+aside a:hover,aside a.on{color:var(--accent);border-left-color:var(--accent2);background:var(--card)}
+main{flex:1;min-width:0}
+section{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 22px;margin-bottom:18px}
+section h2{margin:0 0 10px;color:var(--accent);font-size:19px}
+h3{margin:14px 0 6px;font-size:15px}
+code{background:var(--code);padding:1px 5px;border-radius:4px;font:13px Consolas,monospace}
+pre{background:var(--code);padding:10px 12px;border-radius:8px;overflow:auto;font:13px/1.45 Consolas,monospace}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th{background:var(--accent);color:#fff;text-align:left;padding:6px 10px}
+td{border:1px solid var(--line);padding:6px 10px;vertical-align:top}
+tr:nth-child(even) td{background:rgba(127,160,200,.08)}
+ul{padding-left:20px;margin:6px 0}
+li{margin:3px 0}
+button{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:6px;padding:4px 12px}
+button:hover{border-color:var(--accent2)}
+button.primary{background:var(--accent2);border-color:var(--accent2);color:#fff}
+.reveal{color:var(--accent2);cursor:pointer;font-style:italic}
+.hidden-ans{filter:blur(5px);cursor:pointer;user-select:none}
+details{border:1px solid var(--line);border-radius:8px;margin:8px 0;padding:0 12px;background:var(--card)}
+summary{cursor:pointer;font-weight:600;padding:8px 0;color:var(--ink)}
+details[open]>summary{color:var(--accent)}
+.tools{margin:0 0 10px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.muted{color:var(--muted)}
+/* diagrams */
+.dgwrap{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start}
+.dgmain{flex:1 1 640px;min-width:320px}
+.dgpanel{flex:0 1 280px;min-width:240px;border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:var(--bg);font-size:13.5px}
+svg.dg{width:100%;height:auto;border:1px solid var(--line);border-radius:8px;background:var(--card)}
+svg .edge{stroke:#556;stroke-width:1.8;fill:none;transition:opacity .2s}
+svg .edge.dash{stroke-dasharray:7 5}
+svg .elabel{font:italic 12px sans-serif;fill:var(--ink)}
+svg .elbg{fill:var(--card)}
+svg .node rect{stroke-width:2;transition:filter .2s}
+svg .node text{font:600 13px sans-serif;fill:#111;pointer-events:none}
+svg .node text.sub{font:400 11.5px sans-serif}
+svg .node{cursor:pointer}
+svg .node:hover rect{filter:brightness(.93)}
+svg .node.sel rect{stroke:var(--hot);stroke-width:4}
+svg.focus .edge:not(.on),svg.focus .badge:not(.on),svg.focus .elabel:not(.on),svg.focus .elbg:not(.on){opacity:.12}
+svg.focus .node:not(.on){opacity:.4}
+svg .edge.hot{stroke:var(--hot);stroke-width:3.4;stroke-dasharray:9 6;animation:flow .8s linear infinite}
+svg .edge.done{stroke:var(--accent2)}
+@keyframes flow{to{stroke-dashoffset:-30}}
+svg .badge circle{fill:var(--accent);stroke:#fff;stroke-width:2}
+svg .badge text{font:700 12px sans-serif;fill:#fff;text-anchor:middle;pointer-events:none}
+svg .badge.cur circle{fill:var(--hot)}
+.steps{display:flex;gap:6px;align-items:center;margin:10px 0 6px;flex-wrap:wrap}
+.steptext{background:var(--bg);border:1px solid var(--line);border-left:4px solid var(--hot);border-radius:6px;padding:8px 12px;min-height:44px}
+ol.steplist{margin:8px 0 0;padding-left:22px;font-size:13.5px}
+ol.steplist li{cursor:pointer;color:var(--muted)}
+ol.steplist li.cur{color:var(--ink);font-weight:600}
+.jump{display:inline-block;margin:2px 6px 2px 0;padding:1px 8px;border:1px solid var(--line);border-radius:12px;font-size:12px;cursor:pointer;color:var(--accent2)}
+/* script */
+.phase{display:flex;gap:12px;border:1px solid var(--line);border-radius:8px;margin:8px 0;padding:10px 12px;transition:background .2s,border-color .2s}
+.phase.cur{background:rgba(232,89,12,.09);border-color:var(--hot)}
+.phase .tag{flex:0 0 150px}
+.phase .tag b{display:block;color:var(--accent)}
+.bar{height:6px;background:var(--line);border-radius:3px;margin-top:6px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent2)}
+.timer{font:600 18px Consolas,monospace}
+.check{display:flex;gap:8px;align-items:flex-start;margin:4px 0}
+.check input{margin-top:5px}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
+@media (max-width:900px){aside{display:none}.layout{padding:10px}}
+@media print{aside,.tools,.steps,button{display:none!important}header{background:#fff;color:#000}section{break-inside:avoid}.hidden-ans{filter:none}}
+</style>
+</head>
+<body>
+<header>
+  <div class="crumb" id="crumb"></div>
+  <h1 id="h1"></h1>
+  <p id="tag"></p>
+  <nav id="nav"></nav>
+  <div class="progress" title="Practice progress (checklists)"><div id="prog"></div></div>
+</header>
+<div class="layout">
+  <aside id="toc"></aside>
+  <main id="main"></main>
+</div>
+<footer>HLD Interview Prep &middot; click any component in a diagram, step through the flow, reveal answers, tick the checklists &middot; progress is saved in your browser</footer>
+<script id="data" type="application/json">{"num": "18", "title": "Nearby Friends", "tagline": "Show which friends are nearby and keep their locations updated in near real time.", "problem": "Design a **Nearby Friends** feature: opted-in users see a list of friends within a radius (e.g. 5 miles) with approximate distance and a last-updated timestamp. Unlike Proximity Service, **both users move**, so locations change constantly.", "why": "Tests real-time pub/sub, WebSocket, high write QPS for location updates, and ephemeral (TTL) storage.", "clarify": [["Which friends count as nearby?", "Within 5 miles (configurable)."], ["Distance model?", "Straight-line."], ["Scale?", "1 B users, 10% use the feature = 100 M DAU."], ["Keep location history?", "Yes, for ML/analytics."], ["Inactive friends?", "Disappear after 10 minutes of inactivity."]], "functional": ["Show nearby friends with distance and timestamp.", "Refresh the list every few seconds.", "Opt-in / opt-out of sharing."], "nonfunctional": ["Low latency for location updates.", "Reliability with tolerated occasional data loss (a lost update is replaced by the next).", "Eventual consistency of locations is fine."], "estimates": ["100 M DAU; about 10 M concurrent users. Each reports location every 30 s -> **about 334 K location update QPS** (10 M / 30).", "Assume each user has 400 friends, 10% online and nearby-enabled -> each update fans out to about 40 friends -> **about 14 M location updates/s pushed to clients**.", "Location cache entry about 100 bytes x 10 M active users = 1 GB -> trivial for Redis; history store is the larger volume."], "diagrams": [{"cols": 5, "rows": 4, "row_h": 64, "nodes": [["u", "Mobile / web users", 0, 1.2, "client"], ["lb", "Load balancer", 1.2, 1.2, "lb"], ["ws", "WebSocket servers\n(stateful)", 2.5, 1.2, "service"], ["rc", "Redis location cache\nuser -> (lat,long,ts) TTL", 4, 0, "cache"], ["ps", "Redis Pub/Sub\none channel per user", 4, 1.6, "queue"], ["lh", "Location history DB\n(Cassandra)", 4, 3.1, "db"], ["api", "Restful API servers\nfriend list, profile", 1.2, 0, "service"], ["udb", "User DB\n(friend graph)", 2.5, 0, "db"]], "edges": [["u", "lb"], ["lb", "ws"], ["lb", "api"], ["api", "udb"], ["ws", "rc", "store"], ["ws", "ps", "publish", ""], ["ps", "ws", "subscribe", "--"], ["ws", "lh", "history", "--"]]}], "flow": ["Client sends its location over a **WebSocket** every ~30 s -> WebSocket server stores it in the **Redis location cache** (with a 10-minute TTL) and writes to the history DB.", "The server **publishes** the update to the user's own pub/sub channel.", "Each friend's WebSocket server is **subscribed** to the channels of that user's friends; on receiving an update it computes distance to the subscriber. If within radius, it forwards via WebSocket to the friend's client; otherwise drops.", "On app start: load the friend list, subscribe to each friend's channel, and read their last known locations from the cache to compute the initial list."], "deep": [["Why WebSocket and not polling", ["Bi-directional and persistent: server must push updates to clients; polling at this scale is wasteful."]], ["Location cache", ["Redis `user_id -> {lat, long, timestamp}` with **TTL**; if no update arrives the key expires, so inactive users silently disappear (matches the 10-minute rule). Loss on cache failure is tolerable: next update repopulates."]], ["Pub/Sub channels", ["Redis Pub/Sub: lightweight channel creation, nothing persisted, fire-and-forget; each active user has a channel. Memory per channel is small (subscriber list pointers), so 10 M channels is feasible (about 100 GB with many subscribers - shard the pub/sub cluster).", "**Sharding pub/sub:** consistent hashing on `channel_id`; a **service discovery** (ZooKeeper/etcd) holds the hash-ring so WebSocket servers know which Redis node to publish/subscribe to. Resharding is an operational event (stateful, treat like a planned maintenance)."]], ["Adding/removing friends and distance calculation", ["New friend: callback to the WebSocket server -> subscribe to the friend's channel. The server filters by distance server-side, so clients get only nearby friends.", "Distance: haversine / great-circle on (lat, long); precise enough for 5 miles."]], ["Scaling WebSocket servers", ["Stateful; auto-scale in/out carefully: **drain** connections before removing a node. Registry of user -> WebSocket server may be needed."]], ["Nearby random person (extension)", ["Use geohash-based channels: users publish to the channel of their geohash cell (and subscribe to the cell + 8 neighbours) to find non-friends."]], ["Privacy and battery", ["Opt-in, granular controls, encrypt in transit; reduce update frequency when the user is stationary (adaptive frequency)."]]], "tradeoffs": [["Fan-out", "Per-user channel (fits friend graph) / geohash channel", "Per-user for friends; geohash for strangers."], ["Storage of current location", "Redis (TTL) / DB", "Redis for ephemeral, high QPS."], ["Update interval", "Fixed 30 s / adaptive", "Adaptive saves battery and load."], ["Pub/Sub", "Redis (fast, no persistence) / Kafka (durable)", "Redis is enough; locations are ephemeral."]], "scale": ["Shard Redis cache by user_id; replicate pub/sub clusters via hash ring.", "Cap friends considered/subscribed to limit fan-out; limit very large friend lists.", "Multi-region deployment: users stay within a regional cluster (cross-region friends via a bridge)."], "followups": ["How do you add and remove Redis pub/sub nodes without dropping subscriptions?", "How would you show nearby non-friends (strangers)?", "How do you handle friends with huge friend lists?", "How do you protect privacy (precision, delays)?"], "pitfalls": ["Re-using the Proximity Service geohash approach without considering movement.", "Persisting every update synchronously in the critical path.", "Ignoring the fan-out multiplier (334 K updates -> 14 M deliveries)."], "recap": ["WebSocket + Redis location cache (TTL) + Redis Pub/Sub channel per user.", "Publish own update; friends' servers subscribe and filter by distance.", "Shard pub/sub with consistent hashing + service discovery; history in Cassandra."], "walks": {"0": [["u", "lb", "The app connects through the load balancer. REST calls (friend list, profile) go to the API servers; location updates use a **WebSocket**."], ["lb", "ws", "The load balancer assigns the user to a **stateful WebSocket server**. On connect, the server loads the friend list and subscribes to each friend's channel."], ["ws", "rc", "Every ~30 s the client sends its location. The server stores `(lat, long, timestamp)` in the **Redis location cache** with a TTL (10 min), so inactive users disappear on their own."], ["ws", "ps", "The server **publishes** the update to the user's own channel in Redis Pub/Sub."], ["ps", "ws", "Every friend's WebSocket server subscribed to that channel receives it, **computes the distance** to its user, and pushes the update down the friend's WebSocket only if within the radius."], ["ws", "lh", "In parallel the location is appended to the **location history DB** (Cassandra) for analytics and ML. This is off the critical path."]]}, "info": {"0": {"ps": "One channel per user. Cheap to create, nothing is persisted (fire and forget), so a lost message is replaced by the next update. Shard channels across Redis nodes with **consistent hashing** and keep the ring in service discovery (ZooKeeper/etcd).", "rc": "Latest known location per user with a TTL. Losing it is tolerable; the next update repopulates it.", "ws": "Stateful connections; scale in/out carefully and **drain** connections before removing a node. Filters by distance server-side so clients only receive nearby friends."}}, "script": [["1. Understand + scope", 5, "\"Nearby means within 5 miles, straight-line distance. With 100 M DAU and about 10 M concurrent users reporting every 30 seconds, that is about 334 K location updates per second. With around 40 online friends per user, each update fans out to 40 pushes, so roughly 14 M deliveries per second. A lost update is fine because the next one replaces it.\""], ["2. High-level design", 10, "\"Clients keep a WebSocket to a stateful server. The server stores the latest location in a Redis cache with a TTL, and publishes it to the user's Redis Pub/Sub channel. Each friend's WebSocket server is subscribed to that channel, calculates distance and pushes to the friend if within range. History goes to Cassandra.\""], ["3. Deep dive", 25, "\"The tricky part is sharding pub/sub: I use consistent hashing on the channel ID, with the ring stored in a service discovery system. Pub/Sub is chosen because channels are cheap and nothing is persisted. WebSocket servers are stateful, so I drain connections when scaling in. For strangers I'd use geohash-based channels. For privacy I'd make the feature opt-in, and reduce update frequency when the user is stationary.\""], ["4. Wrap up", 4, "\"Extra points: cap friend counts to limit fan-out, multi-region deployment, and monitoring of fan-out latency. Compared with Proximity Service, the index here is ephemeral and push-based because both ends move.\""]], "refs": [["Redis Pub/Sub", "https://redis.io/docs/latest/develop/interact/pubsub/"], ["Geohash (Wikipedia)", "https://en.wikipedia.org/wiki/Geohash"], ["GeeksforGeeks: Geohashing and quadtrees for location-based services", "https://www.geeksforgeeks.org/system-design/geohashing-and-quadtrees-for-location-based-services/"]], "chapters": [{"num": "02", "title": "Scale From Zero To Millions Of Users", "file": "02 - Scale From Zero To Millions Of Users.html"}, {"num": "03", "title": "Back-of-the-envelope Estimation", "file": "03 - Back-of-the-envelope Estimation.html"}, {"num": "04", "title": "A Framework For System Design Interviews", "file": "04 - A Framework For System Design Interviews.html"}, {"num": "05", "title": "Design A Rate Limiter", "file": "05 - Design A Rate Limiter.html"}, {"num": "06", "title": "Design Consistent Hashing", "file": "06 - Design Consistent Hashing.html"}, {"num": "07", "title": "Design A Key-value Store", "file": "07 - Design A Key-value Store.html"}, {"num": "08", "title": "Design A Unique ID Generator In Distributed Systems", "file": "08 - Design A Unique ID Generator In Distributed Systems.html"}, {"num": "09", "title": "Design A URL Shortener", "file": "09 - Design A URL Shortener.html"}, {"num": "10", "title": "Design A Web Crawler", "file": "10 - Design A Web Crawler.html"}, {"num": "11", "title": "Design A Notification System", "file": "11 - Design A Notification System.html"}, {"num": "12", "title": "Design A News Feed System", "file": "12 - Design A News Feed System.html"}, {"num": "13", "title": "Design A Chat System", "file": "13 - Design A Chat System.html"}, {"num": "14", "title": "Design A Search Autocomplete System", "file": "14 - Design A Search Autocomplete System.html"}, {"num": "15", "title": "Design YouTube", "file": "15 - Design YouTube.html"}, {"num": "16", "title": "Design Google Drive", "file": "16 - Design Google Drive.html"}, {"num": "17", "title": "Proximity Service", "file": "17 - Proximity Service.html"}, {"num": "18", "title": "Nearby Friends", "file": "18 - Nearby Friends.html"}, {"num": "19", "title": "Google Maps", "file": "19 - Google Maps.html"}, {"num": "20", "title": "Distributed Message Queue", "file": "20 - Distributed Message Queue.html"}, {"num": "21", "title": "Metrics Monitoring and Alerting System", "file": "21 - Metrics Monitoring and Alerting System.html"}, {"num": "22", "title": "Ad Click Event Aggregation", "file": "22 - Ad Click Event Aggregation.html"}, {"num": "23", "title": "Hotel Reservation System", "file": "23 - Hotel Reservation System.html"}, {"num": "24", "title": "Distributed Email Service", "file": "24 - Distributed Email Service.html"}, {"num": "25", "title": "S3-like Object Storage", "file": "25 - S3-like Object Storage.html"}, {"num": "26", "title": "Real-time Gaming Leaderboard", "file": "26 - Real-time Gaming Leaderboard.html"}, {"num": "27", "title": "Payment System", "file": "27 - Payment System.html"}, {"num": "28", "title": "Digital Wallet", "file": "28 - Digital Wallet.html"}, {"num": "29", "title": "Stock Exchange", "file": "29 - Stock Exchange.html"}], "pdf": "18 - Nearby Friends.pdf"}</script>
+<script>
+const D = JSON.parse(document.getElementById('data').textContent);
+const NS = 'http://www.w3.org/2000/svg';
+const KIND = {client:['#FFF2CC','#BF9000'],lb:['#E1D5E7','#7030A0'],service:['#DAE8FC','#2F5597'],db:['#D5E8D4','#548235'],
+  cache:['#FFE6CC','#C55A11'],queue:['#F8CECC','#C00000'],store:['#E2F0D9','#385723'],external:['#EDEDED','#595959']};
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const fmt = s => esc(s).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/`(.+?)`/g,'<code>$1</code>');
+const $ = (t, a, h) => { const e = document.createElement(t); if (a) Object.assign(e, a); if (h != null) e.innerHTML = h; return e; };
+const S = (t, a) => { const e = document.createElementNS(NS, t); for (const k in (a||{})) e.setAttribute(k, a[k]); return e; };
+const store = { get(k){ try{return JSON.parse(localStorage.getItem('hld-'+D.num+'-'+k)||'null')}catch(e){return null} },
+                set(k,v){ try{localStorage.setItem('hld-'+D.num+'-'+k, JSON.stringify(v))}catch(e){} } };
+
+// ---------- header / nav
+document.getElementById('crumb').textContent = 'Chapter ' + D.num;
+document.getElementById('h1').textContent = D.title;
+document.getElementById('tag').textContent = D.tagline;
+(function(){
+  const nav = document.getElementById('nav');
+  const i = D.chapters.findIndex(c => c.num === D.num);
+  let h = '<a href="index.html">All chapters</a>';
+  if (i > 0) h += '<a href="' + encodeURI(D.chapters[i-1].file) + '">&larr; ' + esc(D.chapters[i-1].num) + '</a>';
+  if (i < D.chapters.length-1) h += '<a href="' + encodeURI(D.chapters[i+1].file) + '">' + esc(D.chapters[i+1].num) + ' &rarr;</a>';
+  if (D.pdf) h += '<a href="../pdfs/' + encodeURI(D.pdf) + '">PDF version</a>';
+  nav.innerHTML = h;
+})();
+
+const main = document.getElementById('main');
+const sections = [];
+function section(id, title, builder){
+  const s = $('section', {id}); s.appendChild($('h2', null, esc(title)));
+  builder(s); main.appendChild(s); sections.push([id, title]); return s;
+}
+const ul = items => { const u = $('ul'); items.forEach(t => u.appendChild($('li', null, fmt(t)))); return u; };
+
+// ---------- diagram widget
+function renderDiagram(container, spec, idx){
+  const walk = (D.walks && D.walks[idx]) || null;
+  const info = (D.info && D.info[idx]) || {};
+  const cols = spec.cols, rowH = (spec.row_h || 66) * 2, boxH = (spec.box_h || 34) * 2;
+  const rows = Math.max(...spec.nodes.map(n => n[3])) + 1;
+  const W = 1000, H = rows * rowH + 16, cellW = W / cols, boxW = Math.min(cellW * 0.78, 230);
+  const pos = {}, nodeMap = {};
+  spec.nodes.forEach(([id,label,c,r,kind]) => { pos[id] = [Math.min(Math.max((c+0.5)*cellW, boxW/2+4), W-boxW/2-4), (r+0.5)*rowH + 8]; nodeMap[id] = {id,label,kind}; });
+  const svg = S('svg', {viewBox:'0 0 '+W+' '+H, class:'dg'});
+  const defs = S('defs'); const mk = (id) => { const m = S('marker', {id, viewBox:'0 0 10 10', refX:'9', refY:'5', markerWidth:'7', markerHeight:'7', orient:'auto-start-reverse'});
+    m.appendChild(S('path', {d:'M0,0 L10,5 L0,10 z', fill:'#556'})); return m; };
+  const uid = 'a' + idx + Math.random().toString(36).slice(2,6);
+  defs.appendChild(mk(uid)); svg.appendChild(defs);
+  function edgePt(c, o){ const dx=o[0]-c[0], dy=o[1]-c[1]; if(!dx&&!dy) return c;
+    const sx = dx ? (boxW/2)/Math.abs(dx) : Infinity, sy = dy ? (boxH/2)/Math.abs(dy) : Infinity, s = Math.min(sx, sy);
+    return [c[0]+dx*s, c[1]+dy*s]; }
+  const edges = [], gE = S('g'), gB = S('g'), gN = S('g');
+  (spec.edges || []).forEach((e, i) => {
+    const [a,b,label='',style=''] = e; const p1 = edgePt(pos[a], pos[b]), p2 = edgePt(pos[b], pos[a]);
+    const ln = S('line', {x1:p1[0],y1:p1[1],x2:p2[0],y2:p2[1],class:'edge'+(style.includes('--')?' dash':''), 'marker-end':'url(#'+uid+')'});
+    if (style.includes('<')) ln.setAttribute('marker-start','url(#'+uid+')');
+    gE.appendChild(ln);
+    const rec = {a,b,label,ln,p1,p2,els:[ln]};
+    if (label){ const mx=(p1[0]+p2[0])/2, my=(p1[1]+p2[1])/2, tw=label.length*6.4+10;
+      const bg = S('rect', {x:mx-tw/2,y:my-9,width:tw,height:18,class:'elbg',rx:3});
+      const t = S('text', {x:mx,y:my+4,'text-anchor':'middle',class:'elabel'}); t.textContent = label;
+      gE.appendChild(bg); gE.appendChild(t); rec.els.push(bg, t); }
+    edges.push(rec);
+  });
+  const steps = walk ? walk.map(([a,b,t]) => ({a,b,t})) : (spec.edges||[]).map(([a,b,l]) => ({a,b,t:(l?l+': ':'')+nodeLabel(a)+' \u2192 '+nodeLabel(b), auto:true}));
+  function nodeLabel(id){ return nodeMap[id].label.split('\n')[0]; }
+  const badges = [], used = {};
+  if (walk) steps.forEach((st, n) => {
+    let rec = edges.find(e => e.a===st.a && e.b===st.b), rev = false;
+    if (!rec){ rec = edges.find(e => e.a===st.b && e.b===st.a); rev = true; }
+    if (!rec) return;
+    const k = rec.a+rec.b, c = used[k] || 0; used[k] = c+1;
+    const t = rev ? 0.8 - 0.16*c : 0.2 + 0.16*c;
+    const x = rec.p1[0] + (rec.p2[0]-rec.p1[0])*t, y = rec.p1[1] + (rec.p2[1]-rec.p1[1])*t;
+    const g = S('g', {class:'badge'}); g.appendChild(S('circle', {cx:x,cy:y,r:11})); const tx = S('text', {x:x,y:y+4}); tx.textContent = n+1; g.appendChild(tx);
+    gB.appendChild(g); badges[n] = g; st.edge = rec;
+  }); else steps.forEach(st => { st.edge = edges.find(e => e.a===st.a && e.b===st.b); });
+  spec.nodes.forEach(([id,label,c,r,kind]) => {
+    const [f,s] = KIND[kind] || KIND.service; const [cx,cy] = pos[id]; const g = S('g', {class:'node','data-id':id});
+    g.appendChild(S('rect', {x:cx-boxW/2,y:cy-boxH/2,width:boxW,height:boxH,rx:9,fill:f,stroke:s}));
+    const ls = label.split('\n'), y0 = cy - (ls.length-1)*8 + 4;
+    ls.forEach((l,i) => { const t = S('text', {x:cx,y:y0+i*16,'text-anchor':'middle',class:i?'sub':''}); t.textContent = l; g.appendChild(t); });
+    g.addEventListener('click', ev => { ev.stopPropagation(); selectNode(id); });
+    gN.appendChild(g); nodeMap[id].g = g;
+  });
+  svg.appendChild(gE); svg.appendChild(gB); svg.appendChild(gN);
+  svg.addEventListener('click', () => clearSel());
+
+  const wrap = $('div', {className:'dgwrap'}), left = $('div', {className:'dgmain'}), panel = $('div', {className:'dgpanel'});
+  left.appendChild(svg);
+  const ctrl = $('div', {className:'steps'}); const bReset = $('button',null,'&#9198; Reset'), bPrev = $('button',null,'&#9664; Prev'),
+    bNext = $('button',{className:'primary'},'Next &#9654;'), bPlay = $('button',null,'&#9654;&#9654; Auto-play');
+  const cnt = $('span', {className:'muted'}); ctrl.append(bReset,bPrev,bNext,bPlay,cnt); left.appendChild(ctrl);
+  const stext = $('div', {className:'steptext'}); left.appendChild(stext);
+  const list = $('ol', {className:'steplist'}); steps.forEach((st,i) => { const li = $('li', null, fmt(st.t)); li.onclick = () => go(i); list.appendChild(li); });
+  left.appendChild(list);
+  wrap.append(left, panel); container.appendChild(wrap);
+
+  let cur = -1, timer = null;
+  function clearHot(){ edges.forEach(e => e.ln.classList.remove('hot','done')); badges.forEach(b => b && b.classList.remove('cur'));
+    spec.nodes.forEach(n => nodeMap[n[0]].g.classList.remove('on')); svg.classList.remove('focus'); }
+  function go(i){
+    clearSel(true); clearHot(); cur = Math.max(-1, Math.min(steps.length-1, i));
+    steps.forEach((st,k) => { if (st.edge) { if (k < cur) st.edge.ln.classList.add('done'); }});
+    if (cur >= 0){ const st = steps[cur]; if (st.edge) st.edge.ln.classList.add('hot'); if (badges[cur]) badges[cur].classList.add('cur');
+      [st.a, st.b].forEach(id => nodeMap[id].g.classList.add('on')); svg.classList.add('focus');
+      if (st.edge) st.edge.els.forEach(el => el.classList.add('on')); if (badges[cur]) badges[cur].classList.add('on');
+      stext.innerHTML = '<b>Step ' + (cur+1) + ' of ' + steps.length + ':</b> ' + fmt(st.t); }
+    else stext.innerHTML = '<span class="muted">Press <b>Next</b> to walk through the request flow one hop at a time, or click any component for details.</span>';
+    [...list.children].forEach((li,k) => li.classList.toggle('cur', k === cur));
+    cnt.textContent = steps.length ? (cur+1) + ' / ' + steps.length : '';
+  }
+  function stopPlay(){ if (timer){ clearInterval(timer); timer = null; bPlay.innerHTML = '&#9654;&#9654; Auto-play'; } }
+  bReset.onclick = () => { stopPlay(); go(-1); };
+  bPrev.onclick = () => { stopPlay(); go(cur-1); };
+  bNext.onclick = () => { stopPlay(); go(cur+1 >= steps.length ? 0 : cur+1); };
+  bPlay.onclick = () => { if (timer) return stopPlay(); bPlay.innerHTML = '&#9632; Stop'; if (cur >= steps.length-1) go(-1);
+    timer = setInterval(() => { if (cur >= steps.length-1) return stopPlay(); go(cur+1); }, 1800); };
+  if (!steps.length){ ctrl.style.display = 'none'; list.style.display = 'none'; }
+
+  function clearSel(keep){ spec.nodes.forEach(n => nodeMap[n[0]].g.classList.remove('sel')); if (!keep){ clearHot(); cur = -1; stext.innerHTML = '<span class="muted">Press <b>Next</b> to walk through the request flow one hop at a time, or click any component for details.</span>';
+      [...list.children].forEach(li => li.classList.remove('cur')); cnt.textContent = steps.length ? '0 / ' + steps.length : '';
+      edges.forEach(e => e.els.forEach(el => el.classList.remove('on'))); badges.forEach(b => b && b.classList.remove('on')); }
+    panelDefault(); }
+  function panelDefault(){ panel.innerHTML = '<b>Click a component</b><p class="muted">to see what it does, what talks to it, and which deep-dive section covers it. Use <i>Next</i> to animate the request flow.</p>' +
+    '<p class="muted"><span style="color:#BF9000">&#9632;</span> client &nbsp;<span style="color:#7030A0">&#9632;</span> load balancer &nbsp;<span style="color:#2F5597">&#9632;</span> service &nbsp;<span style="color:#548235">&#9632;</span> database &nbsp;<span style="color:#C55A11">&#9632;</span> cache &nbsp;<span style="color:#C00000">&#9632;</span> queue &nbsp;<span style="color:#385723">&#9632;</span> storage &nbsp;<span style="color:#595959">&#9632;</span> external</p>'; }
+  const STOP = new Set(['service','server','servers','system','data','store','queue','cache','storage','user','users','client','node','nodes','the','and','for','api','new']);
+  function selectNode(id){
+    stopPlay(); clearHot(); cur = -1; cnt.textContent = steps.length ? '0 / ' + steps.length : ''; [...list.children].forEach(li => li.classList.remove('cur'));
+    spec.nodes.forEach(n => nodeMap[n[0]].g.classList.remove('sel')); nodeMap[id].g.classList.add('sel');
+    edges.forEach(e => e.els.forEach(el => el.classList.remove('on'))); badges.forEach(b => b && b.classList.remove('on'));
+    const inb = [], outb = []; edges.forEach(e => { const hit = e.a === id || e.b === id; if (hit){ e.els.forEach(el => el.classList.add('on'));
+      const both = (spec.edges.find(x => x[0]===e.a && x[1]===e.b)||[])[3]||''; if (e.b === id || both.includes('<')) inb.push(e); if (e.a === id || both.includes('<')) outb.push(e); }});
+    spec.nodes.forEach(n => { const on = n[0]===id || edges.some(e => (e.a===id && e.b===n[0]) || (e.b===id && e.a===n[0])); if (on) nodeMap[n[0]].g.classList.add('on'); });
+    svg.classList.add('focus'); stext.innerHTML = '<span class="muted">Showing connections of <b>' + esc(nodeLabel(id)) + '</b>. Click empty space to reset.</span>';
+    const ls = nodeMap[id].label.split('\n'); let h = '<b style="font-size:15px">' + esc(ls[0]) + '</b>'; if (ls.length > 1) h += '<div class="muted">' + esc(ls.slice(1).join(' \u00b7 ')) + '</div>';
+    h += '<p>' + (info[id] ? fmt(info[id]) : '<span class="muted">Role: ' + esc(ls.slice(1).join(', ') || 'component in this design') + '. (Add notes in this chapter\'s extras file to show a longer description.)</span>') + '</p>';
+    const li = (arr, side) => arr.length ? '<div><b>' + side + '</b><ul>' + arr.map(e => '<li>' + esc(nodeLabel(side==='Receives from' ? (e.b===id?e.a:e.b) : (e.a===id?e.b:e.a))) + (e.label ? ' <span class="muted">(' + esc(e.label) + ')</span>' : '') + '</li>').join('') + '</ul></div>' : '';
+    h += li(inb, 'Receives from') + li(outb, 'Sends to');
+    const words = ls[0].toLowerCase().split(/[^a-z0-9]+/).filter(w => w.length > 3 && !STOP.has(w));
+    const hits = []; (D.deep||[]).forEach(([hd], k) => { const l = hd.toLowerCase(); if (words.some(w => l.includes(w))) hits.push(k); });
+    if (hits.length){ h += '<div style="margin-top:8px"><b>Related deep dive</b><br>' + hits.slice(0,4).map(k => '<span class="jump" data-k="' + k + '">' + esc(D.deep[k][0].replace(/\(.*\)/,'').slice(0,46)) + '</span>').join('') + '</div>'; }
+    panel.innerHTML = h; panel.querySelectorAll('.jump').forEach(j => j.onclick = () => { const d = document.getElementById('deep-' + j.dataset.k); d.open = true; d.scrollIntoView({behavior:'smooth', block:'start'}); });
+  }
+  panelDefault(); go(-1);
+}
+
+// ---------- sections
+section('problem', D.problem_title || 'Problem statement', s => {
+  s.appendChild($('p', null, fmt(D.problem)));
+  if (D.why) s.appendChild($('p', null, '<b>Why interviewers ask it:</b> ' + fmt(D.why)));
+});
+if (D.clarify) section('clarify', 'Clarifying questions (try answering first)', s => {
+  const t = $('div', {className:'tools'}); const b = $('button', null, 'Reveal all answers'); t.appendChild(b); t.appendChild($('span', {className:'muted'}, 'Cover the right column, say your assumption out loud, then click to reveal.')); s.appendChild(t);
+  const tb = $('table', null, '<tr><th>Question</th><th>Assumed answer</th></tr>');
+  D.clarify.forEach(([q,a]) => { const tr = $('tr'); tr.appendChild($('td', null, fmt(q))); const td = $('td', {className:'hidden-ans', title:'Click to reveal'}, fmt(a)); td.onclick = () => td.classList.remove('hidden-ans'); tr.appendChild(td); tb.appendChild(tr); });
+  b.onclick = () => tb.querySelectorAll('.hidden-ans').forEach(td => td.classList.remove('hidden-ans')); s.appendChild(tb);
+});
+if (D.functional || D.nonfunctional) section('req', 'Requirements', s => {
+  if (D.functional){ s.appendChild($('h3', null, 'Functional')); s.appendChild(ul(D.functional)); }
+  if (D.nonfunctional){ s.appendChild($('h3', null, 'Non-functional')); s.appendChild(ul(D.nonfunctional)); }
+});
+if (D.estimates) section('est', D.estimates_title || 'Back-of-the-envelope estimation', s => s.appendChild(ul(D.estimates)));
+if (D.api) section('api', 'API / data model', s => s.appendChild($('pre', null, esc(D.api.join('\n')))));
+if (D.diagrams || D.flow) section('hl', D.hl_title || 'High-level design', s => {
+  (D.diagrams || []).forEach((dg, i) => { if (dg.title) s.appendChild($('h3', null, esc(dg.title))); const box = $('div'); s.appendChild(box); renderDiagram(box, dg, i);
+    if (dg.caption) s.appendChild($('p', {className:'muted'}, esc(dg.caption))); });
+  if (D.flow){ s.appendChild($('h3', null, 'Request flow')); s.appendChild(ul(D.flow)); }
+});
+section('deep', D.deep_title || 'Deep dive', s => {
+  const t = $('div', {className:'tools'}); const a = $('button', null, 'Expand all'), c = $('button', null, 'Collapse all'); t.append(a, c); s.appendChild(t);
+  const all = [];
+  (D.deep || []).forEach(([hd, items], k) => { const d = $('details', {id:'deep-' + k}); d.appendChild($('summary', null, fmt(hd)));
+    const tx = items.filter(i => !i.startsWith('```')); if (tx.length) d.appendChild(ul(tx));
+    items.filter(i => i.startsWith('```')).forEach(code => d.appendChild($('pre', null, esc(code.replace(/^`+|`+$/g,'').replace(/^\n+|\n+$/g,'')))));
+    s.appendChild(d); all.push(d); });
+  a.onclick = () => all.forEach(d => d.open = true); c.onclick = () => all.forEach(d => d.open = false);
+  window.addEventListener('beforeprint', () => all.forEach(d => d.open = true));
+});
+if (D.tradeoffs) section('trade', 'Trade-offs and alternatives', s => { const tb = $('table', null, '<tr><th>Decision</th><th>Option A / Option B</th><th>How to choose</th></tr>');
+  D.tradeoffs.forEach(r => { const tr = $('tr'); r.forEach(c => tr.appendChild($('td', null, fmt(c)))); tb.appendChild(tr); }); s.appendChild(tb); });
+if (D.scale) section('scale', 'Scaling, reliability, failure modes', s => s.appendChild(ul(D.scale)));
+const checks = [];
+function checklist(parent, items, key){
+  const saved = store.get(key) || [];
+  items.forEach((t, i) => { const row = $('label', {className:'check'}); const cb = $('input', {type:'checkbox'}); cb.checked = !!saved[i];
+    cb.onchange = () => { const v = checks.filter(c => c.key === key).map(c => c.cb.checked); store.set(key, v); updateProgress(); };
+    checks.push({key, cb}); row.appendChild(cb); row.appendChild($('span', null, fmt(t))); parent.appendChild(row); });
+}
+if (D.followups) section('follow', 'Likely follow-up questions (tick when you can answer out loud)', s => checklist(s, D.followups, 'follow'));
+if (D.pitfalls) section('pit', 'Common mistakes', s => s.appendChild(ul(D.pitfalls)));
+if (D.script) section('script', 'Interview answer script (what to say, in order)', s => {
+  s.appendChild($('p', null, 'Follow the 4-step framework. Press <b>Start mock timer</b> to rehearse against the clock; the current phase is highlighted.'));
+  const tools = $('div', {className:'tools'}); const tm = $('span', {className:'timer'}, '00:00'); const bs = $('button', {className:'primary'}, 'Start mock timer'), br = $('button', null, 'Reset');
+  tools.append(bs, br, tm); s.appendChild(tools);
+  const total = D.script.reduce((a, r) => a + r[1], 0), cards = [];
+  D.script.forEach(([ph, mins, say]) => { const c = $('div', {className:'phase'}); c.appendChild($('div', {className:'tag'}, '<b>' + esc(ph) + '</b><span class="muted">' + mins + ' min</span><div class="bar"><i style="width:' + (100*mins/total) + '%"></i></div>'));
+    c.appendChild($('div', null, fmt(say))); s.appendChild(c); cards.push([c, mins]); });
+  let sec = 0, iv = null; const draw = () => { const m = Math.floor(sec/60), x = sec % 60; tm.textContent = String(m).padStart(2,'0') + ':' + String(x).padStart(2,'0');
+    let acc = 0, hit = -1; cards.forEach(([c, mins], i) => { c.classList.remove('cur'); if (hit < 0 && sec < (acc + mins) * 60) hit = i; acc += mins; });
+    if (hit >= 0 && iv) cards[hit][0].classList.add('cur'); };
+  bs.onclick = () => { if (iv){ clearInterval(iv); iv = null; bs.textContent = 'Resume'; } else { iv = setInterval(() => { sec++; draw(); }, 1000); bs.textContent = 'Pause'; draw(); } };
+  br.onclick = () => { clearInterval(iv); iv = null; sec = 0; bs.textContent = 'Start mock timer'; draw(); cards.forEach(([c]) => c.classList.remove('cur')); };
+});
+section('recap', '60-second recap / practice checklist', s => checklist(s, D.recap, 'recap'));
+if (D.refs && D.refs.length) section('refs', 'References and further reading', s => { s.appendChild($('p', {className:'muted'}, 'Cross-checked against these sources.'));
+  const u = $('ul'); D.refs.forEach(([t, h]) => u.appendChild($('li', null, '<a target="_blank" rel="noopener" href="' + esc(h) + '">' + esc(t) + '</a>'))); s.appendChild(u); });
+
+// ---------- progress + toc
+function updateProgress(){ const n = checks.length, d = checks.filter(c => c.cb.checked).length; document.getElementById('prog').style.width = (n ? 100*d/n : 0) + '%'; store.set('pct', n ? Math.round(100*d/n) : 0); }
+updateProgress();
+const toc = document.getElementById('toc'); sections.forEach(([id, t]) => { const a = $('a', {href:'#' + id}, esc(t.replace(/\(.*\)/,'').slice(0,34))); toc.appendChild(a); });
+const links = [...toc.children];
+window.addEventListener('scroll', () => { let cur = sections[0][0]; sections.forEach(([id]) => { if (document.getElementById(id).getBoundingClientRect().top < 120) cur = id; });
+  links.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + cur)); });
+</script>
+</body>
+</html>

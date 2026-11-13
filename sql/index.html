@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SQL Interview Guide: basics to advanced</title>
+  <meta name="description" content="SQL interview reference from basics to advanced: joins, window functions, indexes, transactions, query tuning, plus 30+ solved practice problems." />
+
+  <link rel="stylesheet" href="../assets/style.css" />
+  <link id="hljs-theme" rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" />
+</head>
+<body>
+  <header class="topbar">
+    <button id="menu-btn" class="icon-btn" aria-label="Toggle navigation">☰</button>
+    <a class="icon-btn" href="../" title="All modules" style="text-decoration:none">⌂</a>
+    <div class="brand">SQL <span>Interview</span> Guide</div>
+    <input id="search" type="search" placeholder="Search the guide… (press /)" aria-label="Search" />
+    <button id="theme-btn" class="icon-btn" aria-label="Toggle theme">🌓</button>
+  </header>
+
+  <div class="layout">
+    <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+      <div class="sidebar-title">Contents</div>
+      <ul id="toc"></ul>
+    </nav>
+
+    <main id="content" class="content">
+      <p class="loading">Loading guide…</p>
+    </main>
+  </div>
+
+  <button id="to-top" class="to-top" aria-label="Back to top">↑</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="../assets/python-guide.js" data-lang="sql"
+          data-md="content/00-start.md,content/01-basics.md,content/02-intermediate.md,content/03-advanced.md,content/04-practice.md,content/05-reference.md"></script>
+</body>
+</html>

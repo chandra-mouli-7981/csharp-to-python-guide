@@ -66,6 +66,19 @@ body {
 .sidebar li a.active { background: var(--accent); color: #fff; }
 .sidebar li.sub a { padding-left: 24px; font-size: .85rem; color: var(--muted); }
 .sidebar li.sub a.active { color: #fff; }
+/* group labels (multi-h1 guides such as the SQL module) */
+.sidebar li.group a {
+  margin-top: 14px; padding: 4px 10px; font-size: .72rem; font-weight: 700;
+  letter-spacing: .07em; text-transform: uppercase; color: var(--accent);
+}
+.sidebar li.group:first-child a { margin-top: 0; }
+.sidebar li.group a.active { background: var(--bg-alt); color: var(--accent); }
+/* level banners in multi-h1 guides (class added by python-guide.js) */
+.content h1.level {
+  margin: 3rem 0 0; padding: .6rem 1rem; border-radius: 10px;
+  background: var(--accent); color: #fff; font-size: 1.5rem;
+}
+[data-theme="dark"] .content h1.level { color: #0f141a; }
 
 .content { flex: 1; min-width: 0; max-width: 960px; padding: 32px 40px 80px; margin: 0 auto; }
 .loading { color: var(--muted); }
