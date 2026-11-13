@@ -1,6 +1,13 @@
 ﻿(function () {
   "use strict";
 
+  /* Config from the <script> tag, so one renderer serves several guides:
+       data-md="a.md,b.md"  markdown files (relative to the page), joined in order. Default: guide.md
+       data-lang="sql"      default highlight language for un-tagged code blocks. Default: python */
+  const CFG = (document.currentScript && document.currentScript.dataset) || {};
+  const MD_FILES = (CFG.md || "guide.md").split(",").map((s) => s.trim()).filter(Boolean);
+  const DEFAULT_LANG = CFG.lang || "python";
+
   const content = document.getElementById("content");
   const toc = document.getElementById("toc");
   const sidebar = document.getElementById("sidebar");
@@ -35,9 +42,14 @@
   async function load() {
     let md;
     try {
-      const res = await fetch("guide.md");
-      if (!res.ok) throw new Error(res.status);
-      md = await res.text();
+      const parts = await Promise.all(
+        MD_FILES.map(async (f) => {
+          const res = await fetch(f);
+          if (!res.ok) throw new Error(f + ": " + res.status);
+          return res.text();
+        })
+      );
+      md = parts.join("\n\n");
     } catch (err) {
       content.innerHTML =
         "<h2>Could not load the guide</h2>" +
@@ -58,11 +70,19 @@
   /* ---------- post-processing ---------- */
   function decorate() {
     // heading ids
-    content.querySelectorAll("h1,h2,h3").forEach((h) => { h.id = slugify(h.textContent); });
+    const usedIds = new Set();
+    content.querySelectorAll("h1,h2,h3").forEach((h) => {
+      let id = slugify(h.textContent) || "section";
+      for (let n = 2; usedIds.has(id); n++) id = slugify(h.textContent) + "-" + n;   // keep ids unique
+      usedIds.add(id);
+      h.id = id;
+    });
+    // banner style for the level headings of multi-h1 guides (the first h1 is the page title)
+    if (hasGroups()) content.querySelectorAll("h1").forEach((h, i) => { if (i > 0) h.classList.add("level"); });
 
     // syntax highlighting + copy buttons
     content.querySelectorAll("pre > code").forEach((code) => {
-      if (!code.className) code.className = "language-python";
+      if (!code.className) code.className = "language-" + DEFAULT_LANG;
       hljs.highlightElement(code);
 
       const btn = document.createElement("button");
@@ -88,9 +108,11 @@
   /* ---------- table of contents ---------- */
   function buildToc() {
     toc.innerHTML = "";
-    content.querySelectorAll("h2, h3").forEach((h) => {
+    const selector = hasGroups() ? "h1, h2, h3" : "h2, h3";
+    content.querySelectorAll(selector).forEach((h) => {
       const li = document.createElement("li");
       if (h.tagName === "H3") li.className = "sub";
+      if (h.tagName === "H1") li.className = "group";
       const a = document.createElement("a");
       a.href = "#" + h.id;
       a.textContent = h.textContent;
@@ -115,7 +137,12 @@
       },
       { rootMargin: "-70px 0px -75% 0px" }
     );
-    content.querySelectorAll("h2, h3").forEach((h) => io.observe(h));
+    content.querySelectorAll(selector).forEach((h) => io.observe(h));
+  }
+
+  // A guide with several <h1>s (e.g. "Level 1", "Level 2"...) gets group labels in the sidebar.
+  function hasGroups() {
+    return content.querySelectorAll("h1").length > 1;
   }
 
   /* ---------- group content into sections (for search) ---------- */
@@ -124,8 +151,9 @@
     sections = [];
     const nodes = [...content.childNodes];
     let current = null;
+    const splitTags = hasGroups() ? ["H1", "H2"] : ["H2"];
     nodes.forEach((n) => {
-      if (n.nodeType === 1 && n.tagName === "H2") {
+      if (n.nodeType === 1 && splitTags.includes(n.tagName)) {
         current = document.createElement("section");
         content.insertBefore(current, n);
         sections.push(current);
