@@ -1,0 +1,30 @@
+.mod-expression-evaluator .expr-input-section { padding: 20px 24px; background: var(--card); border-bottom: 1px solid var(--border); }
+
+.mod-expression-evaluator .expr-bar { display: flex; align-items: center; gap: 12px; }
+.mod-expression-evaluator .expr-prefix { font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--txt2); white-space: nowrap; }
+.mod-expression-evaluator .expr-field {
+  flex: 1; background: var(--bg3); border: 1.5px solid var(--border);
+  border-radius: var(--r-sm); padding: 10px 14px;
+  color: var(--txt); font-size: 18px; font-family: 'JetBrains Mono', monospace;
+  outline: none; transition: border-color .15s;
+}
+.mod-expression-evaluator .expr-field:focus { border-color: var(--accent); }
+.mod-expression-evaluator .expr-field.has-error { border-color: var(--red); }
+.mod-expression-evaluator .btn-eval {
+  background: linear-gradient(135deg, var(--accent), #5b52e0);
+  color: #fff; border-radius: var(--r-sm);
+  padding: 10px 22px; font-size: 14px; font-weight: 600;
+  transition: opacity .15s, transform .15s; white-space: nowrap;
+}
+.mod-expression-evaluator .btn-eval:hover { opacity: .9; transform: translateY(-1px); }
+.mod-expression-evaluator .expr-error { margin-top: 8px; color: var(--red); font-size: 13px; }
+
+.mod-expression-evaluator .examples { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+.mod-expression-evaluator .examples-label { font-size: 11px; color: var(--txt3); text-transform: uppercase; letter-spacing: .06em; }
+.mod-expression-evaluator .example-chip {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 20px; padding: 4px 12px;
+  font-size: 12px; font-family: 'JetBrains Mono', monospace;
+  color: var(--txt2); transition: all .12s;
+}
+.mod-expression-evaluator .example-chip:hover { border-color: var(--accent); color: var(--accent); }

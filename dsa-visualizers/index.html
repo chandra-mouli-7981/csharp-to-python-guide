@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DSA Visualizers · Interview Prep Hub</title>
+  <meta name="description" content="Four interactive visualizers in one React app: pathfinding, string matching, expression evaluation and job scheduling." />
+  <link rel="stylesheet" href="../assets/style.css" />
+  <link rel="stylesheet" href="../assets/home.css" />
+  <script src="../assets/theme.js"></script>
+  <style>
+    .card code, .note code { font-size: .85em; }
+    .note { margin: 28px 0 0; padding: 16px 18px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-alt); color: var(--muted); }
+    .note pre { margin: 10px 0 0; }
+    .note p { margin: 0 0 8px; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../" style="text-decoration:none;color:inherit">Interview <span>Prep</span> Hub</a>
+    <button id="theme-btn" class="icon-btn" style="margin-left:auto" aria-label="Toggle theme">🌓</button>
+  </header>
+
+  <main class="home">
+    <h1>DSA Visualizers</h1>
+    <p class="lead">Four interactive projects that animate classic data-structure and algorithm topics, built as one React app.</p>
+
+    <div class="cards">
+      <a class="card" href="dist/#/pathfinding">
+        <div class="card-icon">⬡</div>
+        <h2>Pathfinding Visualizer</h2>
+        <p>Dijkstra, BFS, DFS and A* (Manhattan heuristic) on an interactive grid. Draw walls, drag the start and end nodes, generate a maze with recursive division, change the speed, and read live stats.</p>
+        <span class="card-meta">Module · src/modules/pathfinding</span>
+      </a>
+
+      <a class="card" href="dist/#/pattern-matching">
+        <div class="card-icon">⌕</div>
+        <h2>Text Pattern Matching</h2>
+        <p>KMP, Rabin-Karp and the Z-algorithm run side by side. Compare matches and comparisons, step through every comparison, and see the failure function and Z-array.</p>
+        <span class="card-meta">Module · src/modules/pattern-matching</span>
+      </a>
+
+      <a class="card" href="dist/#/expression-evaluator">
+        <div class="card-icon">⇌</div>
+        <h2>Expression Evaluator</h2>
+        <p>Shunting-Yard infix-to-postfix conversion and stack-based evaluation, with step-by-step animation of the operator stack, output queue and evaluation stack.</p>
+        <span class="card-meta">Module · src/modules/expression-evaluator</span>
+      </a>
+
+      <a class="card" href="dist/#/job-scheduler">
+        <div class="card-icon">⚙</div>
+        <h2>Job Scheduler</h2>
+        <p>A CPU scheduling simulator for FCFS, SJF, Priority, EDF and Round Robin, with a Gantt chart, a heap tree view and waiting, turnaround and response statistics.</p>
+        <span class="card-meta">Module · src/modules/job-scheduler</span>
+      </a>
+    </div>
+
+    <div class="note">
+      <p><strong>One project, one command.</strong> The four visualizers are modules of a single React app (Node.js required). Run these in <code>dsa-visualizers/</code>:</p>
+      <pre><code>npm install
+npm start          # development server, http://localhost:3000
+npm run build      # writes the static site to dist/ (this is what the cards above open)</code></pre>
+      <p style="margin-top:10px">The built <code>dist/</code> folder is plain static files, so it can be hosted anywhere, including a sub-folder of this site. Rebuild it after changing anything in <code>src/</code>.</p>
+    </div>
+  </main>
+</body>
+</html>

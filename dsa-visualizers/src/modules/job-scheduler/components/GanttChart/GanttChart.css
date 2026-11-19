@@ -1,0 +1,28 @@
+.mod-job-scheduler .gantt-chart { background: var(--card); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 20px; }
+.mod-job-scheduler .gc-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.mod-job-scheduler .gc-title { font-size: 13px; font-weight: 600; }
+.mod-job-scheduler .gc-makespan { font-size: 12px; color: var(--txt3); }
+.mod-job-scheduler .gc-makespan strong { color: var(--txt2); font-family: 'JetBrains Mono', monospace; }
+.mod-job-scheduler .gc-empty { color: var(--txt3); font-size: 13px; padding: 32px; text-align: center; background: var(--card); border: 1px solid var(--border); border-radius: var(--r-lg); }
+
+.mod-job-scheduler .gc-timeline-wrap { display: flex; gap: 0; }
+.mod-job-scheduler .gc-labels { display: flex; flex-direction: column; gap: 4px; padding-right: 12px; flex-shrink: 0; }
+.mod-job-scheduler .gc-row-label { height: 32px; display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: var(--txt2); white-space: nowrap; }
+.mod-job-scheduler .gc-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+.mod-job-scheduler .gc-rows { flex: 1; display: flex; flex-direction: column; gap: 4px; overflow: hidden; position: relative; }
+.mod-job-scheduler .gc-row { height: 32px; background: var(--bg2); border-radius: 4px; position: relative; overflow: hidden; }
+.mod-job-scheduler .gc-seg {
+  position: absolute; top: 0; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 3px; border: 1px solid rgba(0,0,0,.2);
+  min-width: 2px; overflow: hidden;
+  transition: filter .15s;
+  cursor: default;
+}
+.mod-job-scheduler .gc-seg:hover { filter: brightness(1.2); }
+.mod-job-scheduler .gc-seg-label { font-size: 10px; font-weight: 700; color: rgba(0,0,0,.7); white-space: nowrap; overflow: hidden; }
+
+.mod-job-scheduler .gc-ticks { height: 20px; position: relative; margin-top: 4px; }
+.mod-job-scheduler .gc-tick { position: absolute; top: 0; border-left: 1px solid var(--border); height: 6px; }
+.mod-job-scheduler .gc-tick-label { position: absolute; top: 7px; transform: translateX(-50%); font-size: 9px; color: var(--txt3); font-family: 'JetBrains Mono', monospace; }

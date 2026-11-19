@@ -1,0 +1,33 @@
+.mod-pattern-matching .search-input-section {
+  padding: 14px 20px; background: var(--card);
+  border-bottom: 1px solid var(--border); flex-shrink: 0;
+}
+.mod-pattern-matching .si-row { display: flex; align-items: flex-end; gap: 12px; }
+.mod-pattern-matching .si-field { display: flex; flex-direction: column; gap: 5px; }
+.mod-pattern-matching .si-text    { flex: 1; }
+.mod-pattern-matching .si-pattern { width: 200px; }
+.mod-pattern-matching .si-field label { font-size: 11px; color: var(--txt3); text-transform: uppercase; letter-spacing: .06em; display: flex; align-items: center; gap: 8px; }
+.mod-pattern-matching .si-len { color: var(--accent); font-family: 'JetBrains Mono', monospace; }
+.mod-pattern-matching .si-field textarea, .mod-pattern-matching .si-field input {
+  background: var(--bg3); border: 1.5px solid var(--border);
+  border-radius: var(--r-sm); padding: 9px 12px;
+  color: var(--txt); font-size: 13px; font-family: 'JetBrains Mono', monospace;
+  resize: none; transition: border-color .15s; width: 100%;
+}
+.mod-pattern-matching .si-field textarea:focus, .mod-pattern-matching .si-field input:focus { border-color: var(--accent); }
+.mod-pattern-matching .btn-run {
+  background: linear-gradient(135deg, var(--accent), #5b52e0); color: #fff;
+  border-radius: var(--r-sm); padding: 10px 22px;
+  font-size: 14px; font-weight: 600;
+  transition: opacity .15s, transform .15s; white-space: nowrap; flex-shrink: 0;
+}
+.mod-pattern-matching .btn-run:hover { opacity: .9; transform: translateY(-1px); }
+.mod-pattern-matching .si-examples { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.mod-pattern-matching .si-ex-label { font-size: 11px; color: var(--txt3); text-transform: uppercase; letter-spacing: .06em; }
+.mod-pattern-matching .si-ex-chip {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 20px; padding: 3px 12px;
+  font-size: 12px; font-family: 'JetBrains Mono', monospace;
+  color: var(--txt2); transition: all .12s;
+}
+.mod-pattern-matching .si-ex-chip:hover { border-color: var(--accent); color: var(--accent); }

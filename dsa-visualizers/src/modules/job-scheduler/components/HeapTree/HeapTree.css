@@ -1,0 +1,4 @@
+.mod-job-scheduler .heap-tree { background: var(--card); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 16px 20px; }
+.mod-job-scheduler .ht-title { font-size: 13px; font-weight: 600; margin-bottom: 12px; }
+.mod-job-scheduler .ht-sub { font-size: 11px; color: var(--txt3); font-weight: 400; margin-left: 6px; }
+.mod-job-scheduler .ht-svg { width: 100%; max-width: 320px; display: block; margin: 0 auto; }

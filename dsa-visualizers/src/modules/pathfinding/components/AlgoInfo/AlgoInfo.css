@@ -1,0 +1,49 @@
+.mod-pathfinding .algo-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 6px 20px;
+  background: rgba(108, 99, 255, 0.05);
+  border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
+}
+
+.mod-pathfinding .algo-description {
+  font-size: 12px;
+  color: var(--text-secondary);
+  flex: 1;
+}
+
+.mod-pathfinding .algo-complexity {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.mod-pathfinding .complexity-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mod-pathfinding .complexity-label {
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.mod-pathfinding .algo-complexity code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--accent-primary);
+  background: rgba(108, 99, 255, 0.1);
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(108, 99, 255, 0.2);
+}
+
+.mod-pathfinding .complexity-sep {
+  color: var(--text-muted);
+}

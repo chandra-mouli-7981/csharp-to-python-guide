@@ -1,0 +1,58 @@
+.mod-expression-evaluator .sv-container { padding: 20px; display: flex; flex-direction: column; gap: 16px; flex: 1; overflow: auto; }
+.mod-expression-evaluator .sv-placeholder { color: var(--txt3); font-size: 14px; text-align: center; padding: 40px 0; }
+
+.mod-expression-evaluator .sv-action {
+  display: flex; align-items: center; gap: 10px;
+  background: rgba(108,99,255,.08); border: 1px solid rgba(108,99,255,.2);
+  border-radius: var(--r-sm); padding: 10px 14px;
+  font-size: 13px; flex-wrap: wrap;
+}
+.mod-expression-evaluator .sv-action-badge {
+  font-size: 10px; font-weight: 700; background: var(--accent);
+  color: #fff; padding: 2px 7px; border-radius: 20px;
+  text-transform: uppercase; letter-spacing: .06em;
+}
+.mod-expression-evaluator .sv-action-text { color: var(--txt2); flex: 1; }
+
+.mod-expression-evaluator .sv-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+.mod-expression-evaluator .sv-col { display: flex; flex-direction: column; gap: 8px; }
+.mod-expression-evaluator .sv-col-header {
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 11px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: .06em; color: var(--txt3);
+}
+.mod-expression-evaluator .sv-count {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 20px; padding: 1px 7px; font-size: 10px; color: var(--txt2);
+}
+
+.mod-expression-evaluator .sv-stack, .mod-expression-evaluator .sv-queue {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--r-sm); min-height: 120px; padding: 8px;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.mod-expression-evaluator .sv-queue-items { display: flex; flex-wrap: wrap; gap: 4px; }
+.mod-expression-evaluator .sv-empty { color: var(--txt3); font-size: 12px; text-align: center; padding: 16px; }
+
+.mod-expression-evaluator .sv-item {
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: var(--r-sm); padding: 5px 8px;
+  animation: expression_evaluator_itemIn .15s ease;
+}
+.mod-expression-evaluator .sv-top { border-color: var(--accent); }
+@keyframes expression_evaluator_itemIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+.mod-expression-evaluator .sv-tag { font-size: 9px; color: var(--accent); font-weight: 700; letter-spacing: .05em; }
+
+/* tokens */
+.mod-expression-evaluator .token {
+  font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 600;
+  padding: 2px 8px; border-radius: 4px;
+}
+.mod-expression-evaluator .token-sm { font-size: 13px; padding: 1px 6px; }
+.mod-expression-evaluator .tok-number   { background: rgba(72,207,173,.15);  color: #48cfad; }
+.mod-expression-evaluator .tok-operator { background: rgba(108,99,255,.15);  color: #6c63ff; }
+.mod-expression-evaluator .tok-function { background: rgba(255,179,71,.15);  color: #ffb347; }
+.mod-expression-evaluator .tok-paren    { background: rgba(255,101,132,.12); color: #ff6584; }
+.mod-expression-evaluator .tok-unary    { background: rgba(91,137,247,.15);  color: #5b89f7; }
