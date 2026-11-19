@@ -130,6 +130,21 @@ mark { background: var(--accent-2); color: #000; border-radius: 3px; padding: 0 
 .section-hidden { display: none; }
 .no-results { color: var(--muted); font-style: italic; }
 
+/* multi-file guides: one level per view */
+.sidebar .count {
+  float: right; min-width: 1.4em; padding: 0 6px; border-radius: 999px; text-align: center;
+  background: var(--accent-2); color: #000; font-size: .7rem; font-weight: 700; letter-spacing: 0;
+}
+.view-nav {
+  display: flex; gap: 12px; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border);
+}
+.view-nav a {
+  padding: 10px 16px; border: 1px solid var(--border); border-radius: 10px;
+  background: var(--bg-alt); color: var(--text); text-decoration: none; font-weight: 600;
+}
+.view-nav a:hover { border-color: var(--accent); color: var(--accent); }
+.view-nav .next { margin-left: auto; }
+
 /* back to top */
 .to-top {
   position: fixed; right: 20px; bottom: 20px; width: 42px; height: 42px;

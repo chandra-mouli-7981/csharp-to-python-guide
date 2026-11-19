@@ -1,0 +1,44 @@
+.mod-pattern-matching .step-vis {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--r-lg); padding: 16px 20px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.mod-pattern-matching .sv-header { display: flex; align-items: center; justify-content: space-between; }
+.mod-pattern-matching .sv-title  { font-size: 13px; font-weight: 600; }
+.mod-pattern-matching .sv-nav    { display: flex; align-items: center; gap: 8px; }
+.mod-pattern-matching .sv-counter { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--txt3); }
+.mod-pattern-matching .sv-btn {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: var(--r-sm); padding: 4px 10px; font-size: 12px;
+  color: var(--txt2); transition: all .12s;
+}
+.mod-pattern-matching .sv-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--txt); }
+
+.mod-pattern-matching .sv-progress {
+  height: 4px; background: var(--border);
+  border-radius: 2px; overflow: hidden;
+}
+.mod-pattern-matching .sv-prog-fill { height: 100%; border-radius: 2px; transition: width .2s ease; }
+
+.mod-pattern-matching .sv-step {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--r-sm); padding: 10px 14px;
+  display: flex; flex-direction: column; gap: 4px; font-size: 13px;
+}
+.mod-pattern-matching .sv-step-match { background: rgba(72,207,173,.06); }
+.mod-pattern-matching .sv-action { color: var(--txt2); }
+.mod-pattern-matching .sv-detail { font-size: 12px; color: var(--txt3); }
+.mod-pattern-matching .sv-detail code {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  background: var(--bg3); padding: 1px 5px; border-radius: 3px; color: var(--accent);
+}
+
+.mod-pattern-matching .sv-timeline { display: flex; gap: 3px; flex-wrap: wrap; }
+.mod-pattern-matching .sv-tick {
+  width: 12px; height: 12px; border-radius: 3px;
+  background: var(--bg3); border: 1px solid var(--border);
+  cursor: pointer; transition: all .1s; flex-shrink: 0;
+}
+.mod-pattern-matching .sv-tick:hover     { border-color: var(--txt2); }
+.mod-pattern-matching .sv-tick-active    { border-width: 2px; }
+.mod-pattern-matching .sv-tick-match     { background: rgba(72,207,173,.2); border-color: rgba(72,207,173,.4); }

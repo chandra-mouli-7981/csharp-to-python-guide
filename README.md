@@ -10,6 +10,7 @@ A static, build-free website with study modules. Deployable as-is on GitHub Page
 | Angular Interview Guide | `/angular/` | Mid-level Angular (signals, standalone, RxJS, routing, forms, testing, SSR), coding challenges, find-the-bug and a last-day checklist (content in `angular/content/*.md`) |
 | React Interview Guide | `/react/` | Mid-level React (hooks, effects, React 19 Actions, state management, testing, Server Components), coding challenges, find-the-bug and a last-day checklist (content in `react/content/*.md`) |
 | HLD Interview Prep | `/hld/` | System Design Interview chapters 02–29 as generated HTML pages (`hld/html/`) with a PDF per chapter (`hld/pdfs/`). Copied from `source\repos\HLD`: regenerate there with its `src/build_all.py` and re-copy `html/` and `pdfs/`, don't edit these files by hand |
+| DSA Visualizers | `/dsa-visualizers/` | One React app (Create React App) with four modules under `src/modules/`: `pathfinding`, `pattern-matching`, `expression-evaluator`, `job-scheduler`. Each module's CSS is scoped to `.mod-<name>`, and routes are hash-based (`dist/#/pathfinding`) so it works on any static host. `npm install` then `npm start` to develop; `npm run build` writes the static site to `dsa-visualizers/dist/`, which is committed. Originals (before merge and fixes) are in `Documents\Copilot-Portfolio` |
 | System Design: "What happens if…?" | `/sysdesign/` | 100+ scenario questions with practice mode, question bank and progress tracking |
 
 ## Run locally
@@ -38,7 +39,7 @@ Category ids are defined in `sysdesign/data/q-base.js`. **Only append**: questio
 
 ## Editing the SQL guide
 
-The SQL guide is plain markdown, split by level and concatenated in order by `sql/index.html` (`data-md` attribute):
+The SQL guide is plain markdown, one file per level, listed in order in `sql/index.html` (`data-md` attribute). When `data-md` lists several files, each file is its own view with its own URL (`sql/#basics`, `sql/#basics/some-heading`) and only the open level is rendered; search covers every level. A single file renders as one long page (the Python guide). Keep exactly one `#` heading per file, which becomes the level title:
 
 | File | Content |
 |---|---|
@@ -55,7 +56,7 @@ The SQL guide is plain markdown, split by level and concatenated in order by `sq
 
 ## Editing the Angular and React guides
 
-Both follow the same layout as the SQL guide: markdown files in `<module>/content/`, concatenated in order by `<module>/index.html` (`data-md`), with the code language set by `data-lang` (`typescript` for Angular, `tsx` for React).
+Both follow the same layout as the SQL guide: markdown files in `<module>/content/`, one view per file in the order listed by `<module>/index.html` (`data-md`), with the code language set by `data-lang` (`typescript` for Angular, `tsx` for React).
 
 | File | Content |
 |---|---|

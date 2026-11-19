@@ -1,0 +1,9 @@
+.mod-job-scheduler, .mod-job-scheduler *, .mod-job-scheduler *::before, .mod-job-scheduler *::after{box-sizing:border-box;margin:0;padding:0}
+.mod-job-scheduler{--bg:#0d0d1a;--bg2:#12122a;--bg3:#1a1a35;--card:#16162e;--border:#2a2a4a;--accent:#6c63ff;--green:#48cfad;--red:#ff6584;--yellow:#ffd166;--blue:#5b89f7;--orange:#ffb347;--txt:#e8e8f0;--txt2:#9090b0;--txt3:#5a5a80;--r-sm:6px;--r-md:10px;--r-lg:16px;--navbar:60px}
+.mod-job-scheduler{height:100%;overflow:hidden}
+.mod-job-scheduler{font-family:'Inter',sans-serif;background:var(--bg);color:var(--txt);-webkit-font-smoothing:antialiased}
+.mod-job-scheduler{height:100%;display:flex;flex-direction:column}
+.mod-job-scheduler button{font-family:inherit;cursor:pointer;border:none;outline:none}
+.mod-job-scheduler button:disabled{opacity:.4;cursor:not-allowed}
+.mod-job-scheduler input, .mod-job-scheduler select{font-family:inherit;outline:none}
+.mod-job-scheduler ::-webkit-scrollbar{width:5px}.mod-job-scheduler ::-webkit-scrollbar-track{background:var(--bg2)}.mod-job-scheduler ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}

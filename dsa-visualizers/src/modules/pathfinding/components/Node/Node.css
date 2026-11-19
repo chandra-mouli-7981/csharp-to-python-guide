@@ -1,0 +1,78 @@
+.mod-pathfinding .node {
+  width: var(--node-size);
+  height: var(--node-size);
+  border: 1px solid rgba(42, 42, 74, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: crosshair;
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+  position: relative;
+  background-color: var(--bg-secondary);
+  flex-shrink: 0;
+}
+
+.mod-pathfinding .node:hover:not(.node-start):not(.node-end):not(.node-wall) {
+  background-color: var(--bg-tertiary);
+}
+
+/* ── Start node ── */
+.mod-pathfinding .node-start {
+  background: linear-gradient(135deg, #48cfad, #36b990) !important;
+  border-color: #36b990;
+  cursor: grab;
+  box-shadow: 0 0 12px rgba(72, 207, 173, 0.5);
+  z-index: 2;
+}
+
+/* ── End node ── */
+.mod-pathfinding .node-end {
+  background: linear-gradient(135deg, #ff6584, #e8455f) !important;
+  border-color: #e8455f;
+  cursor: grab;
+  box-shadow: 0 0 12px rgba(255, 101, 132, 0.5);
+  z-index: 2;
+}
+
+/* ── Wall node ── */
+.mod-pathfinding .node-wall {
+  background-color: #1e1e3f !important;
+  border-color: #2a2a50;
+  animation: pathfinding_wallPop 0.15s ease;
+}
+
+@keyframes pathfinding_wallPop {
+  0%   { transform: scale(1.15); background-color: #3a3a6f; }
+  100% { transform: scale(1);    background-color: #1e1e3f; }
+}
+
+/* ── Visited node ── */
+.mod-pathfinding .node-visited {
+  animation: pathfinding_visitedAnim 0.5s ease forwards;
+}
+
+@keyframes pathfinding_visitedAnim {
+  0%   { transform: scale(0.3); background-color: #6c63ff; border-radius: 50%; opacity: 0.5; }
+  50%  { background-color: #5b89f7; border-radius: 25%; }
+  75%  { transform: scale(1.1); background-color: #4a9eff; }
+  100% { transform: scale(1);   background-color: #1e3a6e; border-radius: 0; opacity: 1; }
+}
+
+/* ── Path node ── */
+.mod-pathfinding .node-path {
+  animation: pathfinding_pathAnim 0.4s ease forwards;
+}
+
+@keyframes pathfinding_pathAnim {
+  0%   { transform: scale(0.6); background-color: #ffd166; border-radius: 50%; }
+  50%  { transform: scale(1.2); background-color: #ffb347; }
+  100% { transform: scale(1);   background-color: #ffd166; border-radius: 0; }
+}
+
+.mod-pathfinding .node-icon {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.9);
+  pointer-events: none;
+  user-select: none;
+  line-height: 1;
+}

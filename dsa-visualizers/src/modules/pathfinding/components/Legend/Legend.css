@@ -1,0 +1,44 @@
+.mod-pathfinding .legend {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 8px 20px;
+  background: var(--bg-card);
+  border-top: 1px solid var(--border-color);
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+.mod-pathfinding .legend-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.mod-pathfinding .legend-swatch {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  border: 1px solid rgba(255,255,255,0.08);
+  flex-shrink: 0;
+}
+
+.mod-pathfinding .legend-start   { background: linear-gradient(135deg, #48cfad, #36b990); box-shadow: 0 0 8px rgba(72,207,173,0.5); }
+.mod-pathfinding .legend-end     { background: linear-gradient(135deg, #ff6584, #e8455f); box-shadow: 0 0 8px rgba(255,101,132,0.5); }
+.mod-pathfinding .legend-wall    { background: #1e1e3f; border-color: #2a2a50; }
+.mod-pathfinding .legend-visited { background: #1e3a6e; }
+.mod-pathfinding .legend-path    { background: #ffd166; box-shadow: 0 0 8px rgba(255,209,102,0.4); }
+.mod-pathfinding .legend-empty   { background: var(--bg-secondary); }
+
+.mod-pathfinding .legend-hint {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--text-muted);
+  font-style: italic;
+}

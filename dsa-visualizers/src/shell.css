@@ -1,0 +1,60 @@
+/* Shell only: top bar, home page and the stage each module renders into.
+   Module styles are scoped to .mod-<id> and never touch these selectors. */
+html, body, #root { height: 100%; margin: 0; }
+body {
+  background: #0d0d1a;
+  color: #e8e8f0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+*, *::before, *::after { box-sizing: border-box; }
+
+.dsa-shell { display: flex; flex-direction: column; height: 100%; }
+
+.dsa-bar {
+  flex: 0 0 40px;
+  display: flex; align-items: center; gap: 6px;
+  padding: 0 14px;
+  background: #0a0a16;
+  border-bottom: 1px solid #2a2a4a;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none;           /* tabs scroll sideways on narrow screens; no bar needed */
+}
+.dsa-bar::-webkit-scrollbar { display: none; }
+.dsa-bar a {
+  color: #9090b0; text-decoration: none; font-size: 13px; font-weight: 500;
+  padding: 5px 10px; border-radius: 6px;
+}
+.dsa-bar a:hover { color: #e8e8f0; background: #1a1a35; }
+.dsa-bar a.is-active { color: #fff; background: #6c63ff; }
+.dsa-brand { font-weight: 700 !important; color: #e8e8f0 !important; margin-right: 8px; }
+.dsa-brand.is-active { background: transparent !important; color: #e8e8f0 !important; }
+.dsa-tabs { display: flex; gap: 4px; }
+.dsa-back { margin-left: auto; }
+
+/* Each module fills the stage; its own wrapper (.mod-<id>) sets height:100% inside it. */
+.dsa-stage { flex: 1 1 auto; min-height: 0; position: relative; }
+.dsa-stage > * { height: 100%; }
+.dsa-loading { display: grid; place-items: center; color: #9090b0; font-size: 14px; }
+
+/* Home */
+.dsa-home { overflow: auto; }
+.dsa-home-inner { max-width: 1040px; margin: 0 auto; padding: 40px 24px 56px; }
+.dsa-home h1 { font-size: 28px; margin: 0 0 8px; }
+.dsa-lead { color: #9090b0; margin: 0 0 28px; line-height: 1.6; }
+.dsa-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.dsa-card {
+  display: block; text-decoration: none; color: inherit;
+  background: #16162e; border: 1px solid #2a2a4a; border-radius: 14px; padding: 20px;
+  transition: border-color .15s ease, transform .15s ease;
+}
+.dsa-card:hover { border-color: #6c63ff; transform: translateY(-2px); }
+.dsa-card-icon { font-size: 26px; margin-bottom: 10px; color: #6c63ff; }
+.dsa-card h2 { font-size: 17px; margin: 0 0 8px; }
+.dsa-card p { color: #9090b0; font-size: 13.5px; line-height: 1.6; margin: 0 0 14px; }
+.dsa-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.dsa-tags span {
+  font-size: 11.5px; color: #48cfad; background: rgba(72, 207, 173, .1);
+  border: 1px solid rgba(72, 207, 173, .25); padding: 2px 8px; border-radius: 999px;
+}

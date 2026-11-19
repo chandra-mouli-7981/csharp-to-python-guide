@@ -1,0 +1,17 @@
+.mod-job-scheduler .job-form { background: var(--card); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 16px 20px; }
+.mod-job-scheduler .jf-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--txt3); margin-bottom: 12px; }
+.mod-job-scheduler .jf-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: flex-end; }
+.mod-job-scheduler .jf-field { display: flex; flex-direction: column; gap: 4px; min-width: 70px; flex: 1; }
+.mod-job-scheduler .jf-field label { font-size: 10px; color: var(--txt3); text-transform: uppercase; letter-spacing: .05em; }
+.mod-job-scheduler .jf-field input {
+  background: var(--bg3); border: 1px solid var(--border); border-radius: var(--r-sm);
+  padding: 7px 10px; color: var(--txt); font-size: 13px; width: 100%;
+  transition: border-color .15s;
+}
+.mod-job-scheduler .jf-field input:focus { border-color: var(--accent); }
+.mod-job-scheduler .btn-add-job {
+  background: linear-gradient(135deg, var(--accent), #5b52e0); color: #fff;
+  border-radius: var(--r-sm); padding: 8px 18px; font-size: 13px; font-weight: 600;
+  margin-top: 10px; transition: opacity .15s, transform .15s; align-self: flex-end;
+}
+.mod-job-scheduler .btn-add-job:hover { opacity: .9; transform: translateY(-1px); }

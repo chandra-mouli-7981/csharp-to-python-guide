@@ -1,0 +1,10 @@
+.mod-job-scheduler .job-table-wrap { overflow-x: auto; }
+.mod-job-scheduler .job-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.mod-job-scheduler .job-table th { padding: 7px 10px; text-align: left; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--txt3); border-bottom: 1px solid var(--border); }
+.mod-job-scheduler .job-table td { padding: 8px 10px; border-bottom: 1px solid rgba(42,42,74,.4); color: var(--txt2); font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+.mod-job-scheduler .job-table tr:hover td { background: var(--bg3); }
+.mod-job-scheduler .jt-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 8px; flex-shrink: 0; }
+.mod-job-scheduler .jt-name { font-weight: 600; color: var(--txt); font-family: 'Inter', sans-serif; }
+.mod-job-scheduler .jt-remove { background: none; border: none; color: var(--txt3); font-size: 12px; cursor: pointer; padding: 2px 4px; transition: color .12s; }
+.mod-job-scheduler .jt-remove:hover { color: var(--red); }
+.mod-job-scheduler .jt-empty { color: var(--txt3); font-size: 13px; padding: 16px; text-align: center; }

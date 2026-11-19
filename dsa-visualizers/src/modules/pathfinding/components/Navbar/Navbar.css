@@ -1,0 +1,191 @@
+.mod-pathfinding .navbar {
+  height: var(--navbar-height);
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  gap: 12px;
+  flex-shrink: 0;
+  z-index: 10;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* ── Brand ── */
+.mod-pathfinding .navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.mod-pathfinding .brand-icon {
+  font-size: 22px;
+  color: var(--accent-primary);
+  filter: drop-shadow(0 0 6px rgba(108, 99, 255, 0.6));
+  animation: pathfinding_hexPulse 3s ease infinite;
+}
+
+@keyframes pathfinding_hexPulse {
+  0%, 100% { filter: drop-shadow(0 0 6px rgba(108, 99, 255, 0.6)); }
+  50%       { filter: drop-shadow(0 0 12px rgba(108, 99, 255, 0.9)); }
+}
+
+.mod-pathfinding .brand-name {
+  font-size: 18px;
+  font-weight: 700;
+  background: linear-gradient(90deg, #6c63ff, #48cfad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  white-space: nowrap;
+}
+
+/* ── Divider ── */
+.mod-pathfinding .navbar-divider {
+  width: 1px;
+  height: 32px;
+  background: var(--border-color);
+  flex-shrink: 0;
+}
+
+/* ── Layout ── */
+.mod-pathfinding .navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+  min-width: 0;
+}
+
+.mod-pathfinding .navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+/* ── Controls ── */
+.mod-pathfinding .control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mod-pathfinding .control-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.mod-pathfinding .control-select {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 5px 28px 5px 10px;
+  font-size: 13px;
+  font-weight: 500;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%239090b0'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.mod-pathfinding .control-select:hover:not(:disabled) {
+  border-color: var(--accent-primary);
+}
+
+.mod-pathfinding .control-select:focus {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 2px rgba(108, 99, 255, 0.2);
+}
+
+/* ── Badges ── */
+.mod-pathfinding .algo-badges {
+  display: flex;
+  gap: 6px;
+}
+
+.mod-pathfinding .badge {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 20px;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+
+.mod-pathfinding .badge-green  { background: rgba(72, 207, 173, 0.15); color: #48cfad; border: 1px solid rgba(72, 207, 173, 0.3); }
+.mod-pathfinding .badge-red    { background: rgba(255, 101, 132, 0.15); color: #ff6584; border: 1px solid rgba(255, 101, 132, 0.3); }
+.mod-pathfinding .badge-blue   { background: rgba(108, 99, 255, 0.15);  color: #6c63ff; border: 1px solid rgba(108, 99, 255, 0.3); }
+.mod-pathfinding .badge-gray   { background: rgba(144, 144, 176, 0.1);  color: var(--text-secondary); border: 1px solid var(--border-color); }
+
+/* ── Buttons ── */
+.mod-pathfinding .btn-group {
+  display: flex;
+  gap: 4px;
+}
+
+.mod-pathfinding .btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 500;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.mod-pathfinding .btn-primary {
+  background: linear-gradient(135deg, #6c63ff, #5b52e0);
+  color: #fff;
+  box-shadow: 0 2px 12px rgba(108, 99, 255, 0.4);
+}
+
+.mod-pathfinding .btn-primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, #7b74ff, #6c63ff);
+  box-shadow: 0 4px 20px rgba(108, 99, 255, 0.6);
+  transform: translateY(-1px);
+}
+
+.mod-pathfinding .btn-secondary {
+  background: rgba(72, 207, 173, 0.15);
+  color: #48cfad;
+  border: 1px solid rgba(72, 207, 173, 0.3);
+}
+
+.mod-pathfinding .btn-secondary:hover:not(:disabled) {
+  background: rgba(72, 207, 173, 0.25);
+  transform: translateY(-1px);
+}
+
+.mod-pathfinding .btn-danger {
+  background: rgba(255, 101, 132, 0.15);
+  color: #ff6584;
+  border: 1px solid rgba(255, 101, 132, 0.3);
+  animation: pathfinding_pulse 1.2s ease infinite;
+}
+
+@keyframes pathfinding_pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 101, 132, 0.3); }
+  50%       { box-shadow: 0 0 0 6px rgba(255, 101, 132, 0); }
+}
+
+.mod-pathfinding .btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+}
+
+.mod-pathfinding .btn-ghost:hover:not(:disabled) {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  border-color: var(--accent-primary);
+}

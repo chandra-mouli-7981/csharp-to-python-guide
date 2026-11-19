@@ -1,0 +1,17 @@
+.mod-pattern-matching .text-display { background: var(--card); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 16px 20px; }
+.mod-pattern-matching .td-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.mod-pattern-matching .td-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--txt3); }
+.mod-pattern-matching .td-matches { font-size: 12px; font-weight: 700; }
+.mod-pattern-matching .td-text {
+  font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.9;
+  word-break: break-all; color: var(--txt2);
+}
+.mod-pattern-matching .td-char {
+  display: inline;
+  border-radius: 2px;
+  padding: 1px 0;
+  border-bottom: 2px solid transparent;
+  transition: background .15s;
+}
+.mod-pattern-matching .td-match  { font-weight: 700; border-radius: 3px; padding: 1px 1px; }
+.mod-pattern-matching .td-window { background: rgba(255,255,255,.06); border-bottom-color: var(--txt3); }
